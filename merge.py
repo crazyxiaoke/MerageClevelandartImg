@@ -1,5 +1,5 @@
-#!/usr/bin/python3  
-# -*-coding:utf-8-*- 
+#!/usr/bin/python3
+# -*-coding:utf-8-*-
 
 import os
 from PIL import Image
@@ -98,14 +98,14 @@ def merge(dir_path, output_file, callback):
     list_name = get_total_file(dir_path)
     list_name = sort_files(list_name)
     # 纵向合并后文件集
-    x_outputs = [] 
+    x_outputs = []
     i = 0
     # 先纵向合并，然后再把合并好的图片做横向合并
     for xnames in list_name:
-        x_outputs.append(mergej(xnames, dir_path+"/temp{0}.jpg".format(i)))
+        x_outputs.append(mergej(xnames, dir_path + "/temp{0}.jpg".format(i)))
         i += 1
     # 横向合并
-    mergei(x_outputs, "{0}/{1}".format(dir_path, output_file)) 
+    mergei(x_outputs, "{0}/{1}".format(dir_path, output_file))
     # 合并完成后删除临时文件
     del_download_temp(list_name)
     del_temp(x_outputs)
@@ -118,4 +118,3 @@ def merge(dir_path, output_file, callback):
 
 if __name__ == '__main__':
     merge('10', '完整版.jpg', None)
-

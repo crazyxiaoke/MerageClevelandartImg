@@ -5,10 +5,8 @@
 import sys
 import download
 import merge
-from PyQt5.QtWidgets import (QApplication, QWidget,
-                             QLabel, QPushButton,
-                             QLineEdit, QGridLayout,
-                             QTextEdit, QFileDialog)
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QPushButton,
+                             QLineEdit, QGridLayout, QTextEdit, QFileDialog)
 from PyQt5.QtGui import (QFont)
 from PyQt5.QtCore import (QThread, pyqtSignal)
 
@@ -16,8 +14,8 @@ from PyQt5.QtCore import (QThread, pyqtSignal)
 class DownloadThread(QThread):
     _signal = pyqtSignal(int, str)
 
-    def __init__(self, code, start_img, start_path, save_img_name,
-                 http_proxy, https_proxy):
+    def __init__(self, code, start_img, start_path, save_img_name, http_proxy,
+                 https_proxy):
         super(DownloadThread, self).__init__()
         self.code = code
         self.start_img = start_img
@@ -25,24 +23,24 @@ class DownloadThread(QThread):
         self.http_proxy = http_proxy
         self.https_proxy = https_proxy
         self.save_img_name = save_img_name
-    
+
     def run(self):
-        download.init(self.code, self.start_img, self.start_path, 
+        download.init(self.code, self.start_img, self.start_path,
                       self.http_proxy, self.https_proxy, self.callback)
         download.download()
-        merge.merge(self.start_path, self.save_img_name+".jpg", 
+        merge.merge(self.start_path, self.save_img_name + ".jpg",
                     self.callback)
 
     def callback(self, errorcode, text):
         self._signal.emit(errorcode, text)
-    
-        
-class MerageImage(QWidget): 
+
+
+class MerageImage(QWidget):
     def __init__(self):
         super(MerageImage, self).__init__()
         self.initUI()
 
-    # 初始化界面    
+    # 初始化界面
     def initUI(self):
         self.setGeometry(300, 300, 600, 600)
         self.setWindowTitle("获取图片")
@@ -100,12 +98,9 @@ class MerageImage(QWidget):
         else:
             self.comfirm_btn.setEnabled(False)
             self.infoOutput('[INFO]:下载开始')
-            self.downloadThread = DownloadThread(self.img_code, 
-                                                 self.start_img, 
-                                                 self.dir_path,
-                                                 self.save_img_name, 
-                                                 self.http_proxy, 
-                                                 self.https_proxy)
+            self.downloadThread = DownloadThread(
+                self.img_code, self.start_img, self.dir_path,
+                self.save_img_name, self.http_proxy, self.https_proxy)
             self.downloadThread._signal.connect(self.callback)
             self.downloadThread.start()
 
@@ -113,21 +108,21 @@ class MerageImage(QWidget):
     def openDir(self):
         filename = QFileDialog.getExistingDirectory(self, 'open file', './')
         self.save_dir_path_edit.setText(filename)
-    
+
     # 下载/合并回调输出信息
     def callback(self, errorcode, text):
         if errorcode == 0:
             self.comfirm_btn.setEnabled(True)
         elif errorcode == 1:
-            self.infoOutput('[INFO]:'+text)
+            self.infoOutput('[INFO]:' + text)
         else:
-            self.infoOutput('[ERROR]:'+text)
+            self.infoOutput('[ERROR]:' + text)
 
     # 输出信息
     def infoOutput(self, text):
         self.download_info.append(text)
 
-    # 检测输入是否合法                              
+    # 检测输入是否合法
     def checkInput(self):
         if not self.img_code:
             self.infoOutput('[ERROR]:请输入图片编码')

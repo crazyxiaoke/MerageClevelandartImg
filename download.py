@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# -*-coding:utf-8-*- 
+# -*-coding:utf-8-*-
 import requests
 import os
 
@@ -16,8 +16,9 @@ postfix = ''
 dir_path = ''
 proxies = {}
 callback = None
+
 # proxies = {
-#     "http": "socks5://127.0.0.1:1080", 
+#     "http": "socks5://127.0.0.1:1080",
 #     "https": "socks5://127.0.0.1:1080"
 #     }
 
@@ -37,7 +38,7 @@ def init(code, start_img, start_path, http_proxy, https_proxy, outputInfo):
         proxies['http'] = http_proxy
     if https_proxy:
         proxies['https'] = https_proxy
-        callback(1, '代理地址：'+str(proxies))
+        callback(1, '代理地址：' + str(proxies))
     try:
         start_img_name = start_img.split('.', 1)[0]
         postfix = start_img.split('.', 1)[1]
@@ -47,7 +48,7 @@ def init(code, start_img, start_path, http_proxy, https_proxy, outputInfo):
     except Exception as err:
         callback(2, err.message)
         callback(0)
-    zoomcode = code 
+    zoomcode = code
     dir_path = start_path
     if not os.path.exists(start_path):
         os.mkdir(start_path)
@@ -64,7 +65,7 @@ def download():
     newurl = url.format(zoomcode, tileGroup, nf)
     response = requests.get(newurl, proxies=proxies)
     if response.status_code == 404:
-        callback(2, nf+' Not found')
+        callback(2, nf + ' Not found')
         errorNum += 1
         if errorNum == 1:
             tileGroup += 1
@@ -81,11 +82,11 @@ def download():
         img = response.content
         errorNum = 0
         z += 1
-        with open(dir_path+'/'+nf, 'wb') as f:
+        with open(dir_path + '/' + nf, 'wb') as f:
             f.write(img)
-        callback(1, nf+' 下载完成')
+        callback(1, nf + ' 下载完成')
         download()
 
 
-# if __name__ == '__main__': 
+# if __name__ == '__main__':
 #     download()
