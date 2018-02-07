@@ -65,7 +65,7 @@ class MerageImage(QWidget):
         self.file_open.clicked.connect(self.openDir)
         grid.addWidget(self.save_dir_path_label, 3, 0)
         grid.addWidget(self.save_dir_path_edit, 3, 1)
-        grid.addWidget(self.file_dialog, 3, 2)
+        grid.addWidget(self.file_open, 3, 2)
         self.save_img_name_label = QLabel('保存图片名称', self)
         self.save_img_name_edit = QLineEdit(self)
         grid.addWidget(self.save_img_name_label, 4, 0)
@@ -114,7 +114,8 @@ class MerageImage(QWidget):
 
     # 打开文件夹
     def openDir(self):
-        filename =QFileDialog.getOpenFileName(self, 'open file', '/home/zxk')
+        filename = QFileDialog.getExistingDirectory(self, 'open file', './')
+        self.save_dir_path_edit.setText(filename)
     
     # 下载/合并回调输出信息
     def callback(self, errorcode, text):
