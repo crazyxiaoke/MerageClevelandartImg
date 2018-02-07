@@ -30,13 +30,10 @@ class DownloadThread(QThread):
         download.init(self.code, self.start_img, self.start_path, 
                       self.http_proxy, self.https_proxy, self.callback)
         download.download()
-        print("1")
         merge.merge(self.start_path, self.save_img_name+".jpg", 
                     self.callback)
-        print("3")
 
     def callback(self, errorcode, text):
-        print("4")
         self._signal.emit(errorcode, text)
     
         

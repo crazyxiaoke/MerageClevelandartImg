@@ -95,11 +95,8 @@ def del_download_temp(list_file):
 
 
 def merge(dir_path, output_file, callback):
-    print(2)
     list_name = get_total_file(dir_path)
-    print(7)
     list_name = sort_files(list_name)
-    print(5)
     # 纵向合并后文件集
     x_outputs = [] 
     i = 0
@@ -107,7 +104,6 @@ def merge(dir_path, output_file, callback):
     for xnames in list_name:
         x_outputs.append(mergej(xnames, dir_path+"/temp{0}.jpg".format(i)))
         i += 1
-    print(6)
     # 横向合并
     mergei(x_outputs, "{0}/{1}".format(dir_path, output_file)) 
     # 合并完成后删除临时文件
