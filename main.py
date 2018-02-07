@@ -3,12 +3,14 @@
 
 # 测试地址 http://artimages.clevelandart.org/zoomify/96FD7F716EC5BBECFD99AFEC8746E128/TileGroup0/4-9-5.jpg
 import sys
+
+from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (QApplication, QFileDialog, QGridLayout, QLabel,
+                             QLineEdit, QPushButton, QTextEdit, QWidget)
+
 import download
 import merge
-from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QPushButton,
-                             QLineEdit, QGridLayout, QTextEdit, QFileDialog)
-from PyQt5.QtGui import (QFont)
-from PyQt5.QtCore import (QThread, pyqtSignal)
 
 
 class DownloadThread(QThread):

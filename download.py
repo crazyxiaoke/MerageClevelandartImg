@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 # -*-coding:utf-8-*-
-import requests
 import os
+
+import requests
 
 # url = 'http://artimages.clevelandart.org/zoomify/484A45A05B4D576545F511FE922B9486/TileGroup0/{0}'
 url = 'http://artimages.clevelandart.org/zoomify/{0}/TileGroup{1}/{2}'
